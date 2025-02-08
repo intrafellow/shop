@@ -1,14 +1,12 @@
 import uvicorn
-from pydantic import BaseModel, EmailStr
 from fastapi import FastAPI
+
 from items_view import router as items_router
+from users.views import roter as users_router
 
 app = FastAPI()
 app.include_router(items_router)
-
-
-class CreateUser(BaseModel):
-    email: EmailStr
+app.include_router(users_router)
 
 
 @app.get("/")
@@ -30,14 +28,6 @@ def add(a: int, b: int):
         "a": a,
         "b": b,
         "result": a + b
-    }
-
-
-@app.post("/users")
-def create_user(user: CreateUser):
-    return {
-        "message": "success",
-        "email": user.email
     }
 
 
