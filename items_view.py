@@ -1,7 +1,7 @@
 from typing import Annotated
 from fastapi import APIRouter,Path
 
-router = APIRouter(prefix="/items")
+router = APIRouter(prefix="/items", tags=["Items"])
 
 
 @router.get("/")
