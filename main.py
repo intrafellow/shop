@@ -1,9 +1,10 @@
 import uvicorn
 from pydantic import BaseModel, EmailStr
-from fastapi import FastAPI, Path
-from typing import Annotated
+from fastapi import FastAPI
+from items_view import router as items_router
 
 app = FastAPI()
+app.include_router(items_router)
 
 
 class CreateUser(BaseModel):
@@ -38,29 +39,6 @@ def create_user(user: CreateUser):
         "message": "success",
         "email": user.email
     }
-
-
-@app.get("/items/")
-def items_list():
-    return [
-        "Item1",
-        "Item2",
-        "Item3"
-    ]
-
-
-@app.get("/items/latest/")
-def get_latest_item():
-    return {"id" : "0", "name": "latest"}
-
-
-@app.get("/items/{item_id}/")
-def get_item_by_id(item_id: Annotated[int, Path(ge=1)]):
-    return {
-        'Item': {
-            "id" : item_id
-        }
-    },
 
 
 if __name__ == '__main__':
