@@ -12,4 +12,4 @@ class User(Base):
 
     username: Mapped[str] = mapped_column(String(32), unique=True)
 
-    post = Mapped[list["Post"]] = relationship(back_populates="user")
+    post: Mapped[list["Post"]] = relationship(back_populates="user")
